@@ -1,5 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import Quote from './components/Quote';
+
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  padding-top: 5rem;
+  flex-direction: column;
+` ;
 
 const Button = styled.button`
   background: -webkit-linear-gradient(top left, #007d35 0%, #007d35 40%, #0f574e 100%);
@@ -19,10 +27,28 @@ const Button = styled.button`
 `
 
 function App() {
+
+  // Quote state
+  const [quote, getQuote] = useState({});
+
+  const getAPI = async () => {
+    const quotesAPI = await fetch('https://breaking-bad-quotes.herokuapp.com/v1/quotes');
+    const quote = await quotesAPI.json();
+    getQuote(quote[0]);
+  }
+
   return (
-    <Button>
-      Get Quote
-    </Button>
+    <Container>
+      <br/>
+      <Quote
+	quote={quote}
+      />
+      <Button
+	onClick={getAPI}
+      >
+    	Get Quote
+      </Button>
+    </Container>
   );
 }
 
