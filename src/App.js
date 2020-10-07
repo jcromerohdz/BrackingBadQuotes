@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import Quote from './components/Quote';
 
@@ -37,9 +37,13 @@ function App() {
     getQuote(quote[0]);
   }
 
+  useEffect( () => {
+    getAPI()
+  }, []);
+
   return (
     <Container>
-      <br/>
+
       <Quote
 	quote={quote}
       />
@@ -48,6 +52,7 @@ function App() {
       >
     	Get Quote
       </Button>
+
     </Container>
   );
 }
